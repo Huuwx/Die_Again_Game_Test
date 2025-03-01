@@ -16,7 +16,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -30,13 +37,18 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.y < -0.5)
         {
-            Dead();
+            StartCoroutine(Dead());
         }
     }
 
-    private void Dead()
+    IEnumerator Dead()
     {
         animator.SetTrigger("Dead");
+        playerMovement.rb.useGravity = false;
+        
+        yield return new WaitForSeconds(1.5f);
+        
+        SceneController.Instance.LoadScene("GameOverScene");
     }
     
     private void OnCollisionEnter(Collision other)
