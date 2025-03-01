@@ -7,7 +7,7 @@ public class ButtonController : MonoBehaviour
 {
     public void RetryBtn()
     {
-        SceneController.Instance.LoadScene("Level" + GameManager.Instance.currentLevel.ToString());
+        SceneController.Instance.LoadScene("Level" + GameManager.Instance.getCurrentLevel().ToString());
     }
 
     public void HomeBtn()
@@ -17,6 +17,6 @@ public class ButtonController : MonoBehaviour
 
     public void StartBtn()
     {
-        SceneController.Instance.LoadScene("Level" + GameManager.Instance.currentLevel.ToString());
+        SceneController.Instance.LoadScene("Level" + GameManager.Instance.getCurrentLevel().ToString());
     }
 }

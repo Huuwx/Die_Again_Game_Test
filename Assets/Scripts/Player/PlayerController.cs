@@ -8,11 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance{get; private set;}
     
-    public PlayerMovement playerMovement;
+    [SerializeField] PlayerMovement playerMovement;
     
     public Animator animator;
     
-    public bool isGrounded;
 
     private void Awake()
     {
@@ -26,10 +25,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        PlayerInfor.Instance.setIsAlive(true);
     }
 
     // Update is called once per frame
@@ -43,11 +41,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Dead()
     {
+        PlayerInfor.Instance.setIsAlive(false);
         animator.SetTrigger("Dead");
         playerMovement.rb.useGravity = false;
         
         yield return new WaitForSeconds(1.5f);
         
+        PlayerInfor.Instance.setPlayerIQ(1);
         SceneController.Instance.LoadScene("GameOverScene");
     }
     
@@ -56,12 +56,17 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("Jumping", false);
-            isGrounded = true;
+            PlayerInfor.Instance.setIsGrounded(true);
         }
 
         if (other.gameObject.CompareTag("Gate"))
         {
-            SceneManager.LoadScene("Level1");
+            GameManager.Instance.setNextLevel(1);
+            if (GameManager.Instance.getCurrentLevel() == 3)
+            {
+                GameManager.Instance.setNextLevel(-2);
+            }
+            SceneController.Instance.LoadScene("Level" + GameManager.Instance.getCurrentLevel().ToString());
         }
     }
 
@@ -70,7 +75,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("Jumping", false);
-            isGrounded = true;
+            PlayerInfor.Instance.setIsGrounded(true);
         }
     }
 
@@ -79,7 +84,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("Jumping", true);
-            isGrounded = false;
+            PlayerInfor.Instance.setIsGrounded(false);
         }
     }
 }

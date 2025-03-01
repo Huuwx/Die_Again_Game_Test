@@ -11,7 +11,7 @@ public class UIGameOverController : MonoBehaviour
 
     private void Start()
     {
-        playerIQText.text = GameManager.Instance.playerIQ.ToString() + " IQ";
-        LevelText.text = "Level" + GameManager.Instance.currentLevel.ToString();
+        playerIQText.text = PlayerInfor.Instance.getPlayerIQ().ToString() + " IQ";
+        LevelText.text = "Level" + GameManager.Instance.getCurrentLevel().ToString();
     }
 }

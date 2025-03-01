@@ -6,12 +6,10 @@ using UnityEngine;
 
 public class GroundMoving : MonoBehaviour
 {
-    public Rigidbody rb;
-
     private bool isActive = false;
     
     [SerializeField] Vector3 posToMove;
-    [SerializeField] float GroundSpeed = 30f;
+    [SerializeField] float GroundSpeed = 3f;
 
     private void Awake()
     {

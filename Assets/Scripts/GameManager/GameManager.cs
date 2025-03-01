@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance{get; private set;}
     
-    public int currentLevel;
-    public int playerIQ = 0;
+    private int currentLevel;
+    
 
     private void Awake()
     {
@@ -22,6 +22,20 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         currentLevel = 1;
-        playerIQ = 0;
+    }
+
+    private void Start()
+    {
+        PlayerInfor.Instance.setPlayerIQ(0);
+    }
+
+    public int getCurrentLevel()
+    {
+        return currentLevel;
+    }
+
+    public void setNextLevel(int plusNumber)
+    {
+        this.currentLevel += plusNumber;
     }
 }
