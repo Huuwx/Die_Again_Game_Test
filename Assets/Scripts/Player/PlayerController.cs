@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance { get; private set; }
 
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] private GameObject buttonHome;
 
     public Animator animator;
 
-    public bool isActive;
+    private bool isActive;
 
     private void Awake()
     {
@@ -48,10 +49,15 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Dead()
     {
+        buttonHome.SetActive(false);
+        
         SoundController.Instance.PlaySfx(SoundController.Instance.GetDeadSfx());
+        
         PlayerInfor.Instance.setPlayerIQ(1);
         PlayerInfor.Instance.setIsAlive(false);
+        
         animator.SetTrigger("Dead");
+        
         playerMovement.rb.useGravity = false;
 
         yield return new WaitForSeconds(1.5f);
