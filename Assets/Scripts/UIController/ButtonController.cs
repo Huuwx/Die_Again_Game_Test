@@ -5,18 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class ButtonController : MonoBehaviour
 {
-    public void RetryBtn()
-    {
-        SceneController.Instance.LoadScene("Level" + GameManager.Instance.getCurrentLevel().ToString());
-    }
-
     public void HomeBtn()
     {
-        SceneController.Instance.LoadScene("HomeScene");
+        SoundController.Instance.PlaySfx(SoundController.Instance.GetClickSfx());
+        StartCoroutine(SceneController.Instance.LoadScene("HomeScene"));
     }
 
-    public void StartBtn()
+    public void LoadLevelBtn()
     {
-        SceneController.Instance.LoadScene("Level" + GameManager.Instance.getCurrentLevel().ToString());
+        SoundController.Instance.PlaySfx(SoundController.Instance.GetClickSfx());
+        StartCoroutine(SceneController.Instance.LoadScene("Level" + GameManager.Instance.getCurrentLevel().ToString()));
     }
 }

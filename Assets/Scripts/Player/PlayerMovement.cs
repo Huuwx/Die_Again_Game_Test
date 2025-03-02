@@ -33,8 +33,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerController.Instance.animator.SetBool("Running", true);
                 Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDir.x, 0, moveDir.y), Vector3.up);
-                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, newRotation,
-                    rotateSpeed * Time.deltaTime);
+                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
             }
             else
             {
@@ -69,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PlayerInfor.Instance.getIsGrounded() && PlayerInfor.Instance.getIsAlive())
         {
+            SoundController.Instance.PlaySfx(SoundController.Instance.GetJumpSfx());
             rb.velocity = new Vector3(rb.velocity.x, PlayerInfor.Instance.getJumpForce(), rb.velocity.z);
         }
     }
